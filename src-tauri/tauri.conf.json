@@ -7,7 +7,7 @@
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "folder",
+    "productName": "Defer",
     "version": "0.0.0"
   },
   "tauri": {
@@ -44,7 +44,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "folder",
+      "identifier": "Defer",
       "targets": "all"
     },
     "security": {
@@ -58,7 +58,7 @@
         "decorations": false,
         "fullscreen": false,
         "resizable": true,
-        "title": "folder",
+        "title": "Defer",
         "width": 315,
         "height": 544
       }

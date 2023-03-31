@@ -35,22 +35,19 @@ fn get_apps(handles: State<Handles>) -> (String, usize){
         hwnd: HWND
     }
     let mut n_handles = handles.0.lock().unwrap();
-    println!("Dude are u here?");
     let mut curr_apps:Vec<App> = Vec::new();
     unsafe { 
         EnumWindows(Some(enum_window), LPARAM(&mut curr_apps as *mut Vec<App> as _)).ok().unwrap();
     };
-    println!("==========================================");
     let mut tot_apps = String::new();
     let mut index = 0; 
     for i in &curr_apps{
-        if (i.title != "folder") && (i.title != "main.rs - folder - Visual Studio Code"){
+        if i.title != "Defer"{
             n_handles.push(i.hwnd);
             unsafe{
                 ShowWindow(i.hwnd, SW_HIDE);
             }
             if index < 3{
-                println!("{}============",i.title);
                 if !i.title.contains("—") {
                     tot_apps = tot_apps + "," + &i.title;
                     index += 1;
@@ -62,7 +59,7 @@ fn get_apps(handles: State<Handles>) -> (String, usize){
                 } 
         }
     }
-        println!("{} | {} | {} | {}",i.active,i.title,i.dim.0,i.dim.1);
+        // println!("{} | {} | {} | {}",i.active,i.title,i.dim.0,i.dim.1);
     }
     tot_apps = tot_apps.chars().skip(1).collect();
     let len = curr_apps.len() - 1;
@@ -126,7 +123,6 @@ fn main() {
             Ok(())})
         .on_window_event(|event| match event.event() {
             tauri::WindowEvent::CloseRequested { api, .. } => {
-                println!("heyo?");
                 event.window().hide().unwrap();
                 api.prevent_close();
             }
@@ -138,6 +134,10 @@ fn main() {
               let window = app.get_window("main").unwrap();
               window.show().unwrap();
               window.set_focus().unwrap();
+            }
+            SystemTrayEvent::RightClick { .. } =>{
+                let window = app.get_window("main").unwrap();
+                window.close().expect("won't close");
             }
             _ => {}
         })

@@ -1,7 +1,23 @@
-# Tauri + Svelte + Typescript
+# Defer 🪄
 
-This template should help get you started developing with Tauri, Svelte and TypeScript in Vite.
+Too many windows on your desktop?
 
-## Recommended IDE Setup
+* Have a meeting?
+* need a break?
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
+but don't want to loose the windows? **DEFER THEM!**
+
+Just one click and all your windows go poof 🪄 another click to restore them all back to the exact state they were in 👀.
+
+If that sounds appealing download the installer from [here!]()
+## Code 🧑🏽‍💻
+The app is built with Rust for backend and Tauri with Svelte and TailwindCSS for frontend.
+
+To edit the code just clone the repo and make sure to have Tauri installed 👀.
+
+All PRs are welcome and appreciated 🚀.
+Please also create and issue if you face one, Thanks!
+
+Heavily inspired by [later](https://github.com/alyssaxuu/later).
+
+<h3 align="center" > Made with 💖 by Om </h3>
