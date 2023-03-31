@@ -9,7 +9,6 @@ use tauri::SystemTray;
 use tauri::SystemTrayEvent;
 use screenshots::Screen;
 use std::thread;
-use std::env;
 use base64::{Engine as _, engine::general_purpose};
 
 struct Handles(Mutex<Vec<HWND>>);
