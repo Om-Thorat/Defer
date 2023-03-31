@@ -10,6 +10,8 @@ but don't want to loose the windows? **DEFER THEM!**
 Just one click and all your windows go poof 🪄 
 and another click to restore them all back to the exact state they were in 🎉
 
+Need a video demo? [here you go](https://www.youtube.com/watch?v=DfeY7PConZo&ab_channel=OmThorat)
+
 If that sounds appealing download the installer from [here!](https://github.com/Om-Thorat/Defer/releases/download/Main/Defer_1.0_x64_en-US.msi)
 ## Code 🧑🏽‍💻
 The app is built with Rust for backend and Tauri with Svelte and TailwindCSS for frontend.
