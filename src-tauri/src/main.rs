@@ -5,8 +5,8 @@ use windows::Win32::UI::WindowsAndMessaging::{GetWindowTextW,ShowWindow};
 use tauri::State;
 use std::sync::Mutex;
 use tauri::Manager;
+use tauri::{CustomMenuItem, SystemTrayMenu,SystemTrayEvent};
 use tauri::SystemTray;
-use tauri::SystemTrayEvent;
 use screenshots::Screen;
 use std::thread;
 use base64::{Engine as _, engine::general_purpose};
@@ -28,9 +28,7 @@ fn screen_shot()->String{
 #[tauri::command]
 fn get_apps(handles: State<Handles>) -> (String, usize){
     struct App {
-        active: bool,
         title: String,
-        dim: (i32,i32,u32,u32),
         hwnd: HWND
     }
     let mut n_handles = handles.0.lock().unwrap();
@@ -78,9 +76,7 @@ fn restore(handles: State<Handles>){
 extern "system" fn enum_window(window: HWND, lparam: LPARAM) -> BOOL {
     #[allow(dead_code)]
     struct App {
-        active: bool,
         title: String,
-        dim: (i32,i32,u32,u32),
         hwnd: HWND
     }
     unsafe {
@@ -99,9 +95,7 @@ extern "system" fn enum_window(window: HWND, lparam: LPARAM) -> BOOL {
             println!("{} ({}, {}, {}, {})", text, info.rcWindow.left, info.rcWindow.top,info.rcWindow.right - info.rcWindow.left,info.rcWindow.bottom-info.rcWindow.top);
             if !(info.rcWindow.left == 0) || !(info.rcWindow.left == 0){
                 let c_app = App{
-                    active: true,
                     title: text,
-                    dim: (info.rcWindow.left,info.rcWindow.top,(info.rcWindow.right - info.rcWindow.left).try_into().unwrap(),(info.rcWindow.bottom-info.rcWindow.top).try_into().unwrap()),
                     hwnd: window
                 };
                 curr_apps.push(c_app)
@@ -113,7 +107,12 @@ extern "system" fn enum_window(window: HWND, lparam: LPARAM) -> BOOL {
 }
 
 fn main() {
-    let tray = SystemTray::new();
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+    let show = CustomMenuItem::new("show".to_string(), "Show");
+    let tray_menu = SystemTrayMenu::new()
+                .add_item(show)
+                .add_item(quit);
+    let tray = SystemTray::new().with_menu(tray_menu);
 
     tauri::Builder::default()
         .setup(|app|{
@@ -134,11 +133,26 @@ fn main() {
               window.show().unwrap();
               window.set_focus().unwrap();
             }
-            SystemTrayEvent::RightClick { .. } =>{
-                let window = app.get_window("main").unwrap();
-                window.close().expect("won't close");
-            }
-            _ => {}
+            SystemTrayEvent::MenuItemClick { id, .. } => {
+                match id.as_str() {
+                  "quit" => {
+                    let window = app.get_window("main").unwrap();
+                    let js_code = r#"
+                        (async () => {
+                        await __TAURI_INVOKE__('restore');
+                        window.close();
+                        })();
+                    "#;
+                    window.eval(&js_code).expect("no way");
+                  }
+                  "show" => {
+                    let window = app.get_window("main").unwrap();
+                    window.show().unwrap();
+                  }
+                  _ => {}
+                }
+              }
+              _ => {}
         })
         .manage(Handles(Default::default()))
         .invoke_handler(tauri::generate_handler![get_apps,restore,screen_shot])
