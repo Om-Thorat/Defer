@@ -35,3 +35,5 @@ Heavily inspired by [later](https://github.com/alyssaxuu/later).
 Thanks [@dan-online](https://github.com/dan-online) 
 
 <h3 align="center" > Made with 💖 by Om </h3>
+
+> Reference for [reddit](https://www.reddit.com/r/Windows10/comments/129s600/defer_save_your_windows_for_later_with_one_click/)
