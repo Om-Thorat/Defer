@@ -11,6 +11,7 @@
     "version": "1.0.0"
   },
   "tauri": {
+    
     "systemTray": {
       "iconPath": "icons/icon.png",
       "iconAsTemplate": true,
@@ -20,7 +21,11 @@
       "all": false,
       "shell": {
         "all": false,
-        "open": true
+        "open": true,
+        "sidecar": true,
+        "scope": [
+          { "name": "bin/pssuspend", "sidecar": true }
+        ]
       },
       "window": {
             "all": false,
@@ -45,7 +50,10 @@
         "icons/icon.ico"
       ],
       "identifier": "Defer",
-      "targets": "all"
+      "targets": "all",
+      "externalBin": [
+        "bin/pssuspend"
+      ]
     },
     "security": {
       "csp": null
