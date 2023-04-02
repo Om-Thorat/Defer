@@ -111,7 +111,7 @@ fn get_apps(handles: State<Handles>) -> (String, usize) {
                 if process_id != 0 {
                     match run_pssuspend(process_id, true) {
                         Ok(_) => {
-                            ShowWindow(i.hwnd, SW_HIDE);
+                            ShowWindowAsync(i.hwnd, SW_HIDE);
                         }
                         Err(e) => {
                             println!("Error: {}", e);
@@ -151,7 +151,7 @@ fn restore(handles: State<Handles>) {
             match handle.pid {
                 Some(pid) => match run_pssuspend(pid, false) {
                     Ok(_) => {
-                        ShowWindow(handle.hwnd, SW_SHOW);
+                        ShowWindowAsync(handle.hwnd, SW_SHOW);
                     }
                     Err(e) => {
                         println!("Error: {}", e);
