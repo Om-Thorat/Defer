@@ -23,7 +23,7 @@ If that sounds appealing download the installer from [here!](https://github.com/
 ## Code 🧑🏽‍💻
 The app is built with Rust for backend and Tauri with Svelte and TailwindCSS for frontend.
 
-To edit the code just clone the repo and make sure to have Tauri installed!
+To know how to contribute have a look at the [Contributing.md](https://github.com/Om-Thorat/Defer/blob/main/Contributing.md)
 
 All PRs are welcome and appreciated 🚀.  
 Please also create an issue if you face one, Thanks!
