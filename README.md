@@ -17,7 +17,11 @@ Features ⚡
 * Save your battery 🔋
 * Set an auto restore timer ⏱️
 
-Need a video demo? [here you go](https://www.youtube.com/watch?v=DfeY7PConZo&ab_channel=OmThorat)
+
+
+https://github.com/Om-Thorat/Defer/assets/76207818/6d3f2d12-9df8-47d6-8a2a-fb804f2a1956
+
+
 
 If that sounds appealing download the installer from [here!](https://github.com/Om-Thorat/Defer/releases/)
 ## Code 🧑🏽‍💻
